@@ -11,6 +11,8 @@ RUN \
 		libglib2.0-dev \
 		libgstreamer1.0-dev \
 		libgstreamer-plugins-base1.0-dev \
+		openssh-client \
+		sshpass \
 		strace \
 		vim \
 		wget && \
@@ -26,4 +28,4 @@ RUN \
 	patch -p1 < /src/gst-sample-apps.diff
 
 WORKDIR /src/gst-plugins-qti-oss/gst-sample-apps
-COPY dev-shell gst-configure-env /usr/local/bin
+COPY dev-shell gst-configure-env run-on-host.sh /usr/local/bin/
