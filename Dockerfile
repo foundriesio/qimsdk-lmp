@@ -19,4 +19,7 @@ RUN \
 RUN \
 	mkdir /src && \
 	cd /src && \
-	wget -O- https://cdn.foundries.io/aihub-models/models1.tar.gz | tar -xz
+	wget -O- https://cdn.foundries.io/aihub-models/models1.tar.gz | tar -xz && \
+	git clone https://git.codelinaro.org/clo/le/platform/vendor/qcom-opensource/gst-plugins-qti-oss.git && \
+	cd gst-plugins-qti-oss && \
+	git checkout imsdk.lnx.2.0.0.r1-rel
