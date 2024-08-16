@@ -18,14 +18,34 @@ RUN \
 		wget && \
 	rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
+#######################################################################
+FROM debian:bullseye as apt-updated
+RUN apt update
+
+#######################################################################
+FROM apt-updated as gst-sample-apps
 COPY gst-sample-apps.diff /src/
+
+RUN apt install -y git
+
 RUN \
 	cd /src && \
-	wget -O- https://cdn.foundries.io/aihub-models/models1.tar.gz | tar -xz && \
 	git clone https://git.codelinaro.org/clo/le/platform/vendor/qcom-opensource/gst-plugins-qti-oss.git && \
 	cd gst-plugins-qti-oss && \
 	git checkout imsdk.lnx.2.0.0.r1-rel && \
 	patch -p1 < /src/gst-sample-apps.diff
+
+#######################################################################
+FROM apt-updated as ai-hub-models
+
+RUN apt install -y wget
+
+RUN wget -O- https://cdn.foundries.io/aihub-models/models1.tar.gz | tar -xz 
+
+#######################################################################
+FROM base
+COPY --from=gst-sample-apps /src /src
+COPY --from=ai-hub-models /models /src/models
 
 WORKDIR /src/gst-plugins-qti-oss/gst-sample-apps
 COPY dev-shell gst-configure-env run-on-host.sh /usr/local/bin/
