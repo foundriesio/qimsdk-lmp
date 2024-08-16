@@ -13,4 +13,38 @@ exec docker compose -p qimsdk-lmp exec -u fio devshell /bin/bash
 EOF
 chmod +x /opt/bin/dev-shell
 
+if [ "$SSHD_ENABLE" -eq 1 ] ; then
+	echo == Starting up sshd ...
+	mkdir -p /run/sshd
+	if [ ! -d /opt/.sshd ] ; then
+		echo "== Configuring sshd first time"
+		mkdir /opt/.sshd
+		cd /opt/.sshd
+		mkdir -p /opt/.sshd/etc/ssh
+		ssh-keygen -A -f /opt/.sshd
+		cat >/opt/.sshd/sshd_config <<EOF
+Port 2222
+HostKey /opt/.sshd/etc/ssh/ssh_host_rsa_key
+HostKey /opt/.sshd/etc/ssh/ssh_host_ecdsa_key
+HostKey /opt/.sshd/etc/ssh/ssh_host_ed25519_key
+UsePAM yes
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem	sftp	/usr/lib/openssh/sftp-server
+EOF
+	fi
+	/usr/sbin/sshd -f /opt/.sshd/sshd_config
+fi
+
+# Allow persisting settings for vscode and vim
+for x in vscode-server vim ; do
+	if [ ! -d /opt/.${x} ] ; then
+		mkdir /opt/.${x}
+		chown fio:fio /opt/.${x}
+	fi
+	if [ ! -e /home/fio/.${x} ] ; then
+		ln -s /opt/.${x} /home/fio/.${x}
+	fi
+done
+
 exec sleep infinity

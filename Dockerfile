@@ -12,6 +12,7 @@ RUN \
 		libgstreamer1.0-dev \
 		libgstreamer-plugins-base1.0-dev \
 		openssh-client \
+		openssh-server \
 		sshpass \
 		strace \
 		sudo \

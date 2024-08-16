@@ -8,5 +8,7 @@ services:
     network_mode: host
     entrypoint: /usr/local/bin/dev-shell
     stop_grace_period: 1s
+    environment:
+      - SSHD_ENABLE=1
     volumes:
       - /opt:/opt

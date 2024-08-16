@@ -40,3 +40,17 @@ can be invoked like:
 
 This command will run the command on host with proper environment variables
 set for things like Wayland.
+
+## Remote Development With VSCode
+By default the container will launch an sshd server on port 2222. You can
+use VSCode's remote "Remote Explorer" feature to connect the target device
+on that port with username/password `fio`. For example tell VSCode to use:
+```
+ ssh -p 2222 fio@qcm6490
+```
+
+At this point it will install the agent components and let you edit files
+from the comfort of VSCode. The container's entrypoint and compose YAML
+set things up to persist the container's `/home/fio/.vscode-server` under
+the host's `/opt/.vscode-server` so that settings/plugins will persist
+across reboots and updates. The same thing is done for the `.vim` directory.
