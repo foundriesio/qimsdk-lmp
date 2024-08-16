@@ -16,3 +16,7 @@ RUN \
 		wget && \
 	rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
+RUN \
+	mkdir /src && \
+	cd /src && \
+	wget -O- https://cdn.foundries.io/aihub-models/models1.tar.gz | tar -xz
