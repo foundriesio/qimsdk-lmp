@@ -6,6 +6,7 @@ services:
     build: ./
     restart: unless-stopped
     network_mode: host
+    entrypoint: /usr/local/bin/dev-shell
     stop_grace_period: 1s
     volumes:
       - /opt:/opt

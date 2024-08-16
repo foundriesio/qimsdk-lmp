@@ -26,4 +26,4 @@ RUN \
 	patch -p1 < /src/gst-sample-apps.diff
 
 WORKDIR /src/gst-plugins-qti-oss/gst-sample-apps
-COPY gst-configure-env /usr/local/bin
+COPY dev-shell gst-configure-env /usr/local/bin

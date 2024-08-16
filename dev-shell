@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+mkdir -p /opt/bin
+cat > /opt/bin/dev-shell <<EOF
+#!/bin/sh -e
+echo ==
+echo == Dropping into a bash shell for the gst-sample-apps.
+echo == Running 'gst-configure-env' will run CMake and produce
+echo == a directory, ./build, to build the apps from.
+echo ==
+
+exec docker compose -p qimsdk-lmp exec devshell /bin/bash
+EOF
+chmod +x /opt/bin/dev-shell
+
+exec sleep infinity
