@@ -9,7 +9,7 @@ echo == Running 'gst-configure-env' will run CMake and produce
 echo == a directory, ./build, to build the apps from.
 echo ==
 
-exec docker compose -p qimsdk-lmp exec devshell /bin/bash
+exec docker compose -p qimsdk-lmp exec -u fio devshell /bin/bash
 EOF
 chmod +x /opt/bin/dev-shell
 

@@ -27,7 +27,7 @@ There is a script, `/usr/local/bin/gst-configure-env`, that will create
 a `./build` directory and run CMake with the correct options enabled.
 
 You can change into the `build` directory and run `make` to build the
-apps and `make install` to have them copied to `/opt` which is shared
+apps and `sudo make install` to have them copied to `/opt` which is shared
 with the host.
 
 ## Running Sample Apps

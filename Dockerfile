@@ -14,9 +14,16 @@ RUN \
 		openssh-client \
 		sshpass \
 		strace \
+		sudo \
 		vim \
 		wget && \
 	rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
+
+RUN \
+	addgroup --gid 1000 fio && \
+	adduser --uid 1000 --gid 1000 fio && \
+	adduser fio sudo && \
+	echo "fio:fio" | chpasswd
 
 #######################################################################
 FROM debian:bullseye as apt-updated
@@ -33,14 +40,16 @@ RUN \
 	git clone https://git.codelinaro.org/clo/le/platform/vendor/qcom-opensource/gst-plugins-qti-oss.git && \
 	cd gst-plugins-qti-oss && \
 	git checkout imsdk.lnx.2.0.0.r1-rel && \
-	patch -p1 < /src/gst-sample-apps.diff
+	patch -p1 < /src/gst-sample-apps.diff && \
+	chown -R 1000:1000 /src
 
 #######################################################################
 FROM apt-updated as ai-hub-models
 
 RUN apt install -y wget
 
-RUN wget -O- https://cdn.foundries.io/aihub-models/models1.tar.gz | tar -xz 
+RUN wget -O- https://cdn.foundries.io/aihub-models/models1.tar.gz | tar -xz
+RUN chown 1000:1000 models/*
 
 #######################################################################
 FROM base

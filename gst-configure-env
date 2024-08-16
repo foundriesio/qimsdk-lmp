@@ -15,4 +15,4 @@ cmake \
 	-DGST_VERSION_REQUIRED=1 \
 	../
 
-echo "== Sample apps are ready to build under ./build with 'make && make install'"
+echo "== Sample apps are ready to build under ./build with 'make && sudo make install'"
