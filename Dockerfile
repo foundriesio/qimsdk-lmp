@@ -24,3 +24,6 @@ RUN \
 	cd gst-plugins-qti-oss && \
 	git checkout imsdk.lnx.2.0.0.r1-rel && \
 	patch -p1 < /src/gst-sample-apps.diff
+
+WORKDIR /src/gst-plugins-qti-oss/gst-sample-apps
+COPY gst-configure-env /usr/local/bin

@@ -1,0 +1,18 @@
+#!/bin/sh -ex
+
+cd /src/gst-plugins-qti-oss/gst-sample-apps
+mkdir -p build
+cd build
+
+cmake \
+	-DCMAKE_INSTALL_PREFIX=/opt \
+	-DENABLE_AUDIO=1 \
+	-DENABLE_CAMERA=1 \
+	-DENABLE_DISPLAY=1 \
+	-DENABLE_ML=1  \
+	-DENABLE_VIDEO_ENCODE=1 \
+	-DENABLE_VIDEO_DECODE=1 \
+	-DGST_VERSION_REQUIRED=1 \
+	../
+
+echo "== Sample apps are ready to build under ./build with 'make && make install'"
