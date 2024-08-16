@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  devshell:
+    image: hub.foundries.io/lmp/qimsdk:v94
+    build: ./
+    restart: unless-stopped
+    network_mode: host
+    stop_grace_period: 1s
+    volumes:
+      - /opt:/opt
