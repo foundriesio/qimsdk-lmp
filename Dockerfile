@@ -16,10 +16,11 @@ RUN \
 		wget && \
 	rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
+COPY gst-sample-apps.diff /src/
 RUN \
-	mkdir /src && \
 	cd /src && \
 	wget -O- https://cdn.foundries.io/aihub-models/models1.tar.gz | tar -xz && \
 	git clone https://git.codelinaro.org/clo/le/platform/vendor/qcom-opensource/gst-plugins-qti-oss.git && \
 	cd gst-plugins-qti-oss && \
-	git checkout imsdk.lnx.2.0.0.r1-rel
+	git checkout imsdk.lnx.2.0.0.r1-rel && \
+	patch -p1 < /src/gst-sample-apps.diff
